@@ -1,0 +1,68 @@
+<form autocomplete="off">
+  <div class="form-row">
+      <div class="form-group col-sm-3">
+        <label><strong>Task:</strong></label>
+      </div>
+      <div class="form-group col-sm-3">
+          <input class="form-control" [(ngModel)]="searchObj.searchTask" name="SearchTask">
+      </div>
+      <div class="form-group col-sm-3">
+          <label><strong>Parent Task:</strong></label>
+      </div>
+      <div class="form-group col-sm-3">
+          <input class="form-control" [(ngModel)]="searchObj.searchParentTask" name="SearchParentTask">
+      </div>
+  </div>
+  <div class="form-row">
+      <div class="form-group col-sm">
+        <label><strong>Priority From:</strong></label>
+      </div>
+      <div class="form-group col-sm">
+          <input class="form-control" [(ngModel)]="searchObj.searchPriorityFrom" name="SearchPriorityFrom">
+      </div>
+      <div class="form-group col-sm">
+          <label><strong>Priority To:</strong></label>
+      </div>
+      <div class="form-group col-sm">
+          <input class="form-control" [(ngModel)]="searchObj.searchPriorityTo" name="SearchPriorityTo">
+      </div>
+      <div class="form-group col-sm">
+          <label><strong>Start Date:</strong></label>
+      </div>
+      <div class="form-group col-sm">
+          <input type="date" class="form-control" [(ngModel)]="searchObj.searchStartDate" name="SearchStartDate">
+      </div>
+      <div class="form-group col-sm">
+          <label><strong>End Date:</strong></label>
+      </div>
+      <div class="form-group col-sm">
+          <input type="date" class="form-control" [(ngModel)]="searchObj.searchEndDate" name="SearchEndDate">
+      </div>
+  </div>
+  <div class="form-row">
+  <table class="table table-borderless table-striped" >
+      <thead class="thead-light" >
+          <th>Task</th>
+          <th>Parent</th>
+          <th>Priority</th>
+          <th>Start</th>
+          <th>End</th>
+          <th></th>
+          <th></th>
+      </thead>
+      <tbody>
+          
+          <tr *ngFor="let task of tasks | taskFilter : searchObj.searchTask :searchObj.searchParentTask :searchObj.searchPriorityFrom :searchObj.searchPriorityTo :searchObj.searchStartDate :searchObj.searchEndDate">
+              
+              <td >{{task.TaskDetail}}</td>
+              <td >{{task.ParentTask}}</td>
+              <td>{{task.Priority}}</td>
+              <td>{{task.StartDate | date:'MM/dd/yyyy'}}</td>
+              <td>{{task.EndDate | date:'MM/dd/yyyy'}}</td>
+              <td><button [disabled]="task.EndValue===1 || !checkDisabled(task)" class="btn btn-dark"  (click)="populateTask(task)" [routerLink]="'/add'">Edit</button></td>
+              <td><button [disabled]="checkDisabled(task) || task.EndValue===1" type="submit" class="btn btn-sm btn-outline-danger" (click)="endTask(task.TaskId,task)">End Task</button></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+</form>

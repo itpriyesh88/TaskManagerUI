@@ -1,0 +1,42 @@
+<form #form="ngForm" (submit)=onSubmit(form) autocomplete="off">
+  <div class="form-row">
+      <div class="form-group col-md-7">
+          <input type="hidden" name="TaskId" #TaskId="ngModel" [(ngModel)]="service.formData.TaskId" class="form-control">
+          
+        </div>
+    <div class="form-group col-md-7">
+      <label>Task:</label>
+      <input id="taskdetail" name="TaskDetail" #TaskDetail="ngModel" [(ngModel)]="service.formData.TaskDetail" class="form-control" required>
+      <div class="validation-error" *ngIf="TaskDetail.invalid && TaskDetail.touched">Required</div>
+    </div>
+    <div class="form-group col-md-7">
+      <label>Priority:</label>
+      <input type="range" id="rngPriority" min="1" max="30" value="5" name="Priority" #Priority="ngModel" [(ngModel)]="service.formData.Priority"
+        class="form-control slider">
+    </div>
+    <div class="form-group col-md-7">
+      <label>Parent Task:</label>
+      <input id="parenttask" name="ParentTask" #ParentTask="ngModel" [(ngModel)]="service.formData.ParentTask" class="form-control" required>
+      
+    </div>
+    <div class="form-group col-md-7">
+      <label>Start Date:</label>
+      <input id="startdate" type="date" name="StartDate" #StartDate="ngModel" [ngModel]="service.formData.StartDate | date:'yyyy-MM-dd'" class="form-control" required>
+      <div class="validation-error" *ngIf="StartDate.invalid && StartDate.touched">Required</div>
+    </div>
+    <div class="form-group col-md-7">
+      <label>End Date:</label>
+      <input id="enddate" type="date" name="EndDate" #EndDate="ngModel" [ngModel]="service.formData.EndDate | date:'yyyy-MM-dd'" class="form-control" required>
+      <div class="validation-error" *ngIf="EndDate.invalid && EndDate.touched">Required</div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="from-group col-md-4">
+      <button name="Submit" [disabled]="form.invalid" type="submit" class="btn btn-lg btn-block btn-info"> Save Task</button>
+    </div>
+    <div class="from-group col-md-3">
+      <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="resetForm(form)">Reset</button>
+    </div>
+  </div>
+
+</form>
